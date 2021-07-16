@@ -15,36 +15,29 @@ from django.utils.decorators import method_decorator
 from .decorators import user_is_nursery, user_is_buyer
 
 
-@method_decorator(user_is_nursery, name="create")
-@method_decorator(user_is_buyer, name="list")
 class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [
-        permissions.IsAdminUser,
         permissions.IsAuthenticatedOrReadOnly,
     ]
     filter_backends = [filters.SearchFilter]
     search_fields = ["name"]
 
 
-@method_decorator(user_is_nursery, name="create")
-@method_decorator(user_is_buyer, name="list")
 class ProductView(viewsets.ModelViewSet):
     queryset = Product.available.all()
     serializer_class = ProductSerializer
     permission_classes = [
-        permissions.IsAdminUser,
         permissions.IsAuthenticatedOrReadOnly,
     ]
     filter_backends = [filters.SearchFilter]
     search_fields = ["name", "description", "category__name"]
 
 
-@method_decorator(user_is_nursery, name="list")
 class CartItemView(generics.ListAPIView):
     serializer_class = CartItemSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     filter_backends = [filters.SearchFilter]
     search_fields = ["product__name", "product__description", "product__category__name"]
 
@@ -53,16 +46,14 @@ class CartItemView(generics.ListAPIView):
         return CartItem.objects.filter(user=user)
 
 
-@method_decorator(user_is_buyer, name="dispatch")
 class CartItemAddView(generics.CreateAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemAddSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
 
-@method_decorator(user_is_buyer, name="dispatch")
 class CartItemDelView(generics.DestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
     queryset = CartItem.objects.all()
 
     def delete(self, request, pk, format=None):
@@ -76,9 +67,8 @@ class CartItemDelView(generics.DestroyAPIView):
         return Response(status=status.HTTP_200_OK, data={"detail": "deleted"})
 
 
-@method_decorator(user_is_buyer, name="dispatch")
 class CartItemAddOneView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, pk, format=None):
         user = request.user
@@ -103,9 +93,8 @@ class CartItemAddOneView(APIView):
         )
 
 
-@method_decorator(user_is_buyer, name="dispatch")
 class CartItemReduceOneView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    # permission_classes = (permissions.IsAuthenticated,)
 
     def get(self, request, pk, format=None):
         user = request.user

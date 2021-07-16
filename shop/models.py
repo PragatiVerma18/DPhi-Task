@@ -51,7 +51,7 @@ class Product(models.Model):
     available = AvailableManager()
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.SET(get_superuser))
-    image = models.ImageField(upload_to=product_image)
+    image = models.URLField()
     description = models.TextField()
 
     def __str__(self):
@@ -72,9 +72,3 @@ class CartItem(models.Model):
         profile.total_price = profile.total_price + amount
         profile.save()
         return True
-
-
-@receiver(post_delete, sender=Product)
-def product_image_delete(sender, instance, **kwargs):
-    if instance.image:
-        instance.image.delete(True)
