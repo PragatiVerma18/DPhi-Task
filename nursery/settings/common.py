@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import environ
 import os
 from os.path import abspath, dirname, exists, join
+from datetime import timedelta
 
 BASE_DIR = dirname(dirname(dirname((abspath(__file__)))))
 PROJECT_DIR = join(BASE_DIR, "nursery")
@@ -43,9 +44,13 @@ CORE_APPS = (
     "django.contrib.staticfiles",
 )
 
-THIRD_PARTY_APPS = ()
+THIRD_PARTY_APPS = (
+    "phonenumber_field",
+    "rest_framework",
+    "rest_framework.authtoken",
+)
 
-OUR_APPS = ()
+OUR_APPS = ("accounts",)
 
 INSTALLED_APPS = CORE_APPS + OUR_APPS + THIRD_PARTY_APPS
 
@@ -123,3 +128,17 @@ STATICFILES_FINDERS = (
 )
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+AUTH_USER_MODEL = "accounts.user"
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.AllowAny",),
+}
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(days=1),
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
