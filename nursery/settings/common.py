@@ -50,7 +50,7 @@ THIRD_PARTY_APPS = (
     "rest_framework.authtoken",
 )
 
-OUR_APPS = ("accounts",)
+OUR_APPS = ("accounts", "shop")
 
 INSTALLED_APPS = CORE_APPS + OUR_APPS + THIRD_PARTY_APPS
 
