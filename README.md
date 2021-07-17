@@ -1,17 +1,25 @@
 # DPhi Assignment for SDE 1 - Backend
 
 ## Objective -
+
 Create an online nursery marketplace API where users can signup, login, view, and order plants available in different nurseries.
 
-## Application overview - 
-- Users  should be able to signup and see all the plants available from different nurseries. They should also be able to add the plants to their cart and place orders.
+## Application overview -
+
+- Users should be able to signup and see all the plants available from different nurseries. They should also be able to add the plants to their cart and place orders.
 - Nurseries should be able to signup and add plants to their shop. They should also be able to view orders placed by users.
+
+## Live Links -
+
+- **Postman Collections:** [https://www.getpostman.com/collections/4ccb52febc632cc66dfd](https://www.getpostman.com/collections/4ccb52febc632cc66dfd)
+
+- **Heroku Hosted Link:** []()
 
 ## Setup Instructions
 
 First make sure that you have the following installed.
 
-* Python 3 and virtualenv
+- Python 3 and virtualenv
 
 Now do the following to setup project
 

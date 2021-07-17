@@ -81,6 +81,7 @@ class CartItemAddOneView(APIView):
 
     def get(self, request, pk, format=None):
         user = request.user
+        print(user, user.role)
         cart_item = CartItem.objects.filter(user=user)
         target_product = cart_item.get(pk=pk)
         product = get_object_or_404(Product, id=target_product.product.id)
@@ -126,3 +127,13 @@ class CartItemReduceOneView(APIView):
             status=status.HTTP_226_IM_USED,
             data={"detail": "one object deleted", "code": "done"},
         )
+
+
+class NurseryOrderView(generics.ListAPIView):
+    model = CartItem
+    serializer_class = CartItemSerializer
+    lookup_field = "user"
+
+    def get_queryset(self):
+        user = self.kwargs["user"]
+        return CartItem.objects.filter(user=user)
