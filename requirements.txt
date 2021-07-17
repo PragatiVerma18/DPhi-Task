@@ -9,7 +9,7 @@ django-environ==0.4.5
 django-heroku==0.3.1
 django-phonenumber-field==4.0.0
 djangorestframework==3.12.4
-djangorestframework-simplejwt
+djangorestframework-simplejwt==4.3.0
 gunicorn==20.1.0
 mypy-extensions==0.4.3
 pathspec==0.8.1
