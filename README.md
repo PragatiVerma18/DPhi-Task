@@ -11,6 +11,8 @@ Create an online nursery marketplace API where users can signup, login, view, an
 
 ## Live Links -
 
+[![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/4ccb52febc632cc66dfd?action=collection%2Fimport#?env%5BDPhi%20Task%5D=W3sia2V5IjoiYmFzZV91cmwiLCJ2YWx1ZSI6Imh0dHBzOi8vbnVyc2VyeS1kamFuZ28uaGVyb2t1YXBwLmNvbSIsImVuYWJsZWQiOnRydWV9LHsia2V5IjoidG9rZW4iLCJ2YWx1ZSI6ImV5SjBlWEFpT2lKS1YxUWlMQ0poYkdjaU9pSklVekkxTmlKOS5leUowYjJ0bGJsOTBlWEJsSWpvaVlXTmpaWE56SWl3aVpYaHdJam94TmpJMk5qQXpPRFF5TENKcWRHa2lPaUk0TURrek1UZGpOMkppWldRMFpEaGlZakpoTW1ZMk1qWmxPVFkzWkdNMk5TSXNJblZ6WlhKZmFXUWlPakY5LkY0YmNnQVVLZXNkMVhIcW1EcUVVMkhxQjdPUmY1azBGX3phYS1qU3YwV1UiLCJlbmFibGVkIjp0cnVlfV0=)
+
 - **Postman Collections:** [https://www.getpostman.com/collections/4ccb52febc632cc66dfd](https://www.getpostman.com/collections/4ccb52febc632cc66dfd)
 - **API Documentation:** [https://documenter.getpostman.com/view/10608582/TzmCgY2K](https://documenter.getpostman.com/view/10608582/TzmCgY2K)
 - **Heroku Hosted Link:** [https://nursery-django.herokuapp.com/](https://nursery-django.herokuapp.com/)
