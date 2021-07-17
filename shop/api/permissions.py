@@ -21,3 +21,15 @@ class NurseryPermission(permissions.BasePermission):
             ):
                 return request.user.has_perms("nursery_perm")
         return True
+
+
+class BuyerPermission(permissions.BasePermission):
+    """
+    Reserve Routes for Buyer
+    """
+
+    def has_permission(self, request, view):
+        get_user_from_token(self.request)
+        if request.user.is_authenticated and request.user.role == "Buyer":
+            return request.user.has_perms("buyer_perm")
+        return True
