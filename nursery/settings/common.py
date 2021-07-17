@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import django_heroku
 import environ
 import os
 from os.path import abspath, dirname, exists, join
@@ -145,3 +146,6 @@ SIMPLE_JWT = {
 
 MEDIA_URL = "/mediafiles/"
 MEDIA_ROOT = os.path.join(BASE_DIR, "mediafiles")
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
