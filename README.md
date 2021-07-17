@@ -13,7 +13,7 @@ Create an online nursery marketplace API where users can signup, login, view, an
 
 - **Postman Collections:** [https://www.getpostman.com/collections/4ccb52febc632cc66dfd](https://www.getpostman.com/collections/4ccb52febc632cc66dfd)
 - **API Documentation:** [https://documenter.getpostman.com/view/10608582/TzmCgY2K](https://documenter.getpostman.com/view/10608582/TzmCgY2K)
-- **Heroku Hosted Link:** []()
+- **Heroku Hosted Link:** [https://nursery-django.herokuapp.com/](https://nursery-django.herokuapp.com/)
 
 ## Setup Instructions
 
