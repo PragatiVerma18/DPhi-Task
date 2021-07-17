@@ -15,6 +15,12 @@ Create an online nursery marketplace API where users can signup, login, view, an
 - **API Documentation:** [https://documenter.getpostman.com/view/10608582/TzmCgY2K](https://documenter.getpostman.com/view/10608582/TzmCgY2K)
 - **Heroku Hosted Link:** [https://nursery-django.herokuapp.com/](https://nursery-django.herokuapp.com/)
 
+## Demo Credentials -
+
+**Username:** admin
+**Email:** admin@gmail.com
+**Password:** admin
+
 ## Setup Instructions
 
 First make sure that you have the following installed.
