@@ -8,10 +8,6 @@ from datetime import datetime
 User = settings.AUTH_USER_MODEL
 
 
-def product_image(instance, filename):
-    return "images/{0}.jpg".format(instance.slug)
-
-
 def get_superuser():
     user = User.objects.filter(is_superuser=True).first()
     return user
@@ -65,10 +61,3 @@ class CartItem(models.Model):
 
     def __str__(self):
         return self.product.name
-
-    def add_amount(self):
-        amount = self.product.price * self.quantity
-        profile = self.user.profile
-        profile.total_price = profile.total_price + amount
-        profile.save()
-        return True

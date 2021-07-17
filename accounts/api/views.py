@@ -6,10 +6,12 @@ from rest_framework import generics, permissions
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework_simplejwt.backends import TokenBackend
 from rest_framework.views import APIView
 from django.contrib.auth import authenticate
-from rest_framework.decorators import api_view, permission_classes
+from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK
+from django.core.exceptions import ValidationError
 
 
 def get_tokens_for_user(user):
@@ -24,6 +26,22 @@ def get_tokens_for_user(user):
         "refresh": str(refresh),
         "access": str(refresh.access_token),
     }
+
+
+def get_user_from_token(request):
+
+    """
+    Function that returns the user from access token.
+    """
+
+    token = request.META.get("HTTP_AUTHORIZATION", " ").split(" ")[1]
+    data = {"token": token}
+    try:
+        valid_data = TokenBackend(algorithm="HS256").decode(token, verify=False)
+        user = valid_data["user"]
+        request.user = user
+    except ValidationError as v:
+        print("validation error", v)
 
 
 class NurseryRegisterAPIView(generics.CreateAPIView):

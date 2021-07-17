@@ -4,7 +4,7 @@ from django.core.exceptions import PermissionDenied
 def user_is_nursery(function):
     def wrap(request, *args, **kwargs):
         user = request.user
-        if user.role == "Nursery":
+        if user.is_authenticated and user.role == "Nursery":
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied
@@ -15,7 +15,7 @@ def user_is_nursery(function):
 def user_is_buyer(function):
     def wrap(request, *args, **kwargs):
         user = request.user
-        if user.role == "Buyer":
+        if user.is_authenticated and user.role == "Buyer":
             return function(request, *args, **kwargs)
         else:
             raise PermissionDenied

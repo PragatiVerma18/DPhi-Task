@@ -1,8 +1,11 @@
+from accounts.api.views import get_user_from_token
 from django.conf.urls import url
 from rest_framework import serializers
 from ..models import Product, Category, CartItem
-from django.contrib.auth.models import User
+from django.conf import settings
 from django.shortcuts import get_object_or_404
+
+User = settings.AUTH_USER_MODEL
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -118,7 +121,7 @@ class CartItemAddSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        user = User.objects.get(id=self.context["request"].user.id)
+        user = self.context["request"].user
         product = get_object_or_404(Product, id=validated_data["product_id"])
         if product.quantity == 0 or product.is_available is False:
             raise serializers.ValidationsError(
@@ -129,7 +132,6 @@ class CartItemAddSerializer(serializers.ModelSerializer):
             product=product, user=user, quantity=validated_data["quantity"]
         )
         cart_item.save()
-        cart_item.add_amount()
         product.quantity = product.quantity - cart_item.quantity
         product.save()
         return cart_item
