@@ -55,9 +55,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         return product
 
     def update(self, instance, validated_data):
-        category = validated_data.pop("category")
-        categories = (instance.category).all()
-        categories = list(categories)
         instance.name = validated_data.get("name", instance.name)
         instance.slug = validated_data.get("slug", instance.slug)
         instance.price = validated_data.get("price", instance.price)
@@ -66,12 +63,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         instance.image = validated_data.get("image", instance.image)
         instance.description = validated_data.get("description", instance.description)
         instance.save()
-
-        for category_data in categories:
-            category = categories.pop(0)
-            category.name = category_data.get("name", category.name)
-            category.slug = category_data.get("slug", category.slug)
-            category.save()
         return instance
 
 
