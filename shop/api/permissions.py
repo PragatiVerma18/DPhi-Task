@@ -2,7 +2,7 @@ from rest_framework import permissions
 from accounts.api.views import get_user_from_token
 
 
-class IsAuthenticatedAndBuyer(BasePermission):
+class IsAuthenticatedAndBuyer(permissions.BasePermission):
 
     """
     Reserve Routes for Buyer
@@ -15,7 +15,7 @@ class IsAuthenticatedAndBuyer(BasePermission):
         return obj.user == request.user and request.user.role == "Buyer"
 
 
-class IsAuthenticatedAndNursery(BasePermission):
+class IsAuthenticatedAndNursery(permissions.BasePermission):
 
     """
     Reserve Routes for Nursery
