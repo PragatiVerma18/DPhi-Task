@@ -51,8 +51,10 @@ class NurseryRegisterSerializer(serializers.ModelSerializer):
     Serializes Nursery Registration data
     """
 
-    password = serializers.CharField(style={"input_type": "password"}, write_only=True)
-    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    password = serializers.CharField(
+        style={"input_type": "password"}, write_only=True)
+    password2 = serializers.CharField(
+        style={"input_type": "password"}, write_only=True)
     message = serializers.SerializerMethodField(read_only=True)
     role = serializers.SerializerMethodField(read_only=True)
     token = serializers.SerializerMethodField(read_only=True)
@@ -88,18 +90,6 @@ class NurseryRegisterSerializer(serializers.ModelSerializer):
             "access": str(refresh.access_token),
         }
 
-    def validate_email(self, value):
-        qs = User.objects.filter(email__iexact=value)
-        if qs.exists():
-            raise serializers.ValidationError("User with this email already exists")
-        return value
-
-    def validate_username(self, value):
-        qs = User.objects.filter(username__iexact=value)
-        if qs.exists():
-            raise serializers.ValidationError("User with this username already exists")
-        return value
-
     def validate(self, data):
         pw = data.get("password")
         pw2 = data.pop("password2")
@@ -126,8 +116,10 @@ class BuyerRegisterSerializer(serializers.ModelSerializer):
     Serializes Buyer Registration data
     """
 
-    password = serializers.CharField(style={"input_type": "password"}, write_only=True)
-    password2 = serializers.CharField(style={"input_type": "password"}, write_only=True)
+    password = serializers.CharField(
+        style={"input_type": "password"}, write_only=True)
+    password2 = serializers.CharField(
+        style={"input_type": "password"}, write_only=True)
     message = serializers.SerializerMethodField(read_only=True)
     role = serializers.SerializerMethodField(read_only=True)
     token = serializers.SerializerMethodField(read_only=True)
@@ -166,13 +158,15 @@ class BuyerRegisterSerializer(serializers.ModelSerializer):
     def validate_email(self, value):
         qs = User.objects.filter(email__iexact=value)
         if qs.exists():
-            raise serializers.ValidationError("User with this email already exists")
+            raise serializers.ValidationError(
+                "User with this email already exists")
         return value
 
     def validate_username(self, value):
         qs = User.objects.filter(username__iexact=value)
         if qs.exists():
-            raise serializers.ValidationError("User with this username already exists")
+            raise serializers.ValidationError(
+                "User with this username already exists")
         return value
 
     def validate(self, data):

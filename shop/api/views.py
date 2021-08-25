@@ -12,9 +12,30 @@ from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import filters
 from accounts.api.views import get_user_from_token
+from .permissions import IsAuthenticatedAndBuyer, IsAuthenticatedAndNursery
 
 
-class CategoryView(viewsets.ModelViewSet):
+class CategoryCreateView(generics.CreateAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [
+        IsAuthenticatedAndNursery
+    ]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]
+
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Category.objects.all()
+    serializer_class = CategorySerializer
+    permission_classes = [
+        IsAuthenticatedAndNursery
+    ]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name"]
+
+
+class CategoryListView(generics.ListAPIView):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
     permission_classes = [
@@ -24,7 +45,27 @@ class CategoryView(viewsets.ModelViewSet):
     search_fields = ["name"]
 
 
-class ProductView(viewsets.ModelViewSet):
+class ProductCreateView(generics.CreateAPIView):
+    queryset = Product.available.all()
+    serializer_class = ProductSerializer
+    permission_classes = [
+        IsAuthenticatedAndNursery
+    ]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name", "description", "category__name"]
+
+
+class ProductDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Product.available.all()
+    serializer_class = ProductSerializer
+    permission_classes = [
+        IsAuthenticatedAndNursery
+    ]
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["name", "description", "category__name"]
+
+
+class ProductListView(generics.ListAPIView):
     queryset = Product.available.all()
     serializer_class = ProductSerializer
     permission_classes = [
@@ -36,9 +77,10 @@ class ProductView(viewsets.ModelViewSet):
 
 class CartItemView(generics.ListAPIView):
     serializer_class = CartItemSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAuthenticatedAndBuyer,)
     filter_backends = [filters.SearchFilter]
-    search_fields = ["product__name", "product__description", "product__category__name"]
+    search_fields = ["product__name",
+                     "product__description", "product__category__name"]
 
     def get_queryset(self):
         user = self.request.user
@@ -48,11 +90,11 @@ class CartItemView(generics.ListAPIView):
 class CartItemAddView(generics.CreateAPIView):
     queryset = CartItem.objects.all()
     serializer_class = CartItemAddSerializer
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAuthenticatedAndBuyer,)
 
 
 class CartItemDelView(generics.DestroyAPIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAuthenticatedAndBuyer,)
     queryset = CartItem.objects.all()
 
     def delete(self, request, pk, format=None):
@@ -67,7 +109,7 @@ class CartItemDelView(generics.DestroyAPIView):
 
 
 class CartItemAddOneView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAuthenticatedAndBuyer,)
 
     def get(self, request, pk, format=None):
         user = request.user
@@ -94,7 +136,7 @@ class CartItemAddOneView(APIView):
 
 
 class CartItemReduceOneView(APIView):
-    permission_classes = (permissions.IsAuthenticated,)
+    permission_classes = (IsAuthenticatedAndBuyer,)
 
     def get(self, request, pk, format=None):
         user = request.user

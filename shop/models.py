@@ -36,7 +36,8 @@ class AvailableManager(models.Manager):
 
 
 class Product(models.Model):
-    name = models.CharField(max_length=150, unique=True, null=False, blank=False)
+    name = models.CharField(max_length=150, unique=True,
+                            null=False, blank=False)
     slug = models.SlugField(unique=True, null=False, blank=False)
     category = models.ManyToManyField(Category, related_name="products")
     price = models.PositiveIntegerField()
@@ -46,7 +47,7 @@ class Product(models.Model):
     objects = models.Manager()
     available = AvailableManager()
     created = models.DateTimeField(auto_now_add=True)
-    user = models.ForeignKey(User, on_delete=models.SET(get_superuser))
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
     image = models.URLField()
     description = models.TextField()
 
