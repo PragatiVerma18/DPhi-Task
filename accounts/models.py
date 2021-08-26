@@ -1,15 +1,12 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-from accounts.managers import UserManager
-
-
 ROLE_CHOICES = (("nursery", "Nursery"), ("buyer", "Buyer"))
 
 
 class User(AbstractUser):
     username = models.CharField(
-        max_length=100,
+        max_length=256,
         unique=True,
         blank=False,
         default="",
@@ -18,9 +15,10 @@ class User(AbstractUser):
             "unique": "A user with that username already exists.",
         },
     )
-    role = models.CharField(
-        max_length=12, error_messages={"required": "Role must be provided"}
-    )
+    role = models.CharField(max_length=15,
+                            choices=ROLE_CHOICES, error_messages={
+                                "required": "Role must be provided"}
+                            )
     verified = models.BooleanField(default=False)
     email = models.EmailField(
         unique=True,
@@ -31,9 +29,5 @@ class User(AbstractUser):
     )
     is_active = models.BooleanField(default=True)
 
-    REQUIRED_FIELDS = ["email"]
-
-    def __unicode__(self):
+    def __str__(self):
         return self.email
-
-    objects = UserManager()

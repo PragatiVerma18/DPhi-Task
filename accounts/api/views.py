@@ -14,30 +14,15 @@ from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP
 from django.core.exceptions import ValidationError
 
 
-def get_tokens_for_user(user):
-
-    """
-    Function that returns the refresh and access token for user.
-    """
-
-    refresh = RefreshToken.for_user(user)
-
-    return {
-        "refresh": str(refresh),
-        "access": str(refresh.access_token),
-    }
-
-
 def get_user_from_token(request):
-
     """
     Function that returns the user from access token.
     """
 
     token = request.META.get("HTTP_AUTHORIZATION", " ").split(" ")[1]
-    data = {"token": token}
     try:
-        valid_data = TokenBackend(algorithm="HS256").decode(token, verify=False)
+        valid_data = TokenBackend(
+            algorithm="HS256").decode(token, verify=False)
         user = valid_data["user"]
         request.user = user
     except ValidationError as v:
@@ -116,7 +101,6 @@ class UserDetail(generics.RetrieveAPIView):
 
 @api_view(["POST"])
 def login(request):
-
     """
     A view that handles login for buyers and nurseries.
     """
@@ -131,7 +115,6 @@ def login(request):
     user = authenticate(username=username, password=password)
     if not user:
         return Response({"error": "Invalid Credentials"}, status=HTTP_404_NOT_FOUND)
-    token = get_tokens_for_user(user)
     serializer = UserSerializer(user)
     data = serializer.data
-    return Response({"data": data}, status=HTTP_200_OK)
+    return Response(data, status=HTTP_200_OK)
