@@ -4,9 +4,9 @@ from .models import Product, Category, CartItem
 
 @admin.register(Product)
 class ProductAdmin(admin.ModelAdmin):
-    """adding the product class to the admin site"""
 
-    list_display = ("name", "price", "quantity", "is_available", "created", "discount")
+    list_display = ("name", "price", "quantity",
+                    "is_available", "created", "discount")
 
     search_fields = (
         "name",
@@ -19,7 +19,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 @admin.register(Category)
 class CategoryAdmin(admin.ModelAdmin):
-    """adding category class to the admin site"""
 
     list_display = (
         "name",

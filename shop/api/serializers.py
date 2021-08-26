@@ -7,10 +7,6 @@ User = settings.AUTH_USER_MODEL
 
 
 class CategorySerializer(serializers.ModelSerializer):
-    """
-    serializer for categories that serialize all of the fields
-    based on Category model
-    """
 
     class Meta:
         model = Category
@@ -18,12 +14,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.HyperlinkedModelSerializer):
-    """
-    serializer for products that serialize:
-    (id', 'url', "name", "slug", "category", "price", "discount", "available",
-    "quantity", "created", "image", "description")
-    and add relation to category serializer \nbased on Product model
-    """
 
     category = CategorySerializer(many=True)
 
@@ -66,11 +56,6 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
-    """
-    serializer for user that serialize :
-    ('id', 'username', 'first_name', 'last_name', 'email', 'image',
-    'is_staff', 'is_active', 'is_superuser')\nbased on default 'User' model
-    """
 
     class Meta:
         model = User
@@ -87,10 +72,6 @@ class UserSerializer(serializers.ModelSerializer):
 
 
 class CartItemSerializer(serializers.ModelSerializer):
-    """
-    serializer for cartitem that serialize all fields in 'CartItem' class
-    model and add 'product' as relation
-    """
 
     product = ProductSerializer()
 

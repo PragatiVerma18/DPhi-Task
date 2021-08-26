@@ -5,11 +5,6 @@ from django.conf import settings
 User = settings.AUTH_USER_MODEL
 
 
-def get_superuser():
-    user = User.objects.filter(is_superuser=True).first()
-    return user
-
-
 class Category(models.Model):
     name = models.CharField(max_length=200)
     slug = models.SlugField(max_length=200)
@@ -41,7 +36,6 @@ class Product(models.Model):
     discount = models.PositiveIntegerField(default=0)
     is_available = models.BooleanField(default=True)
     quantity = models.PositiveIntegerField()
-    objects = models.Manager()
     available = AvailableManager()
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
