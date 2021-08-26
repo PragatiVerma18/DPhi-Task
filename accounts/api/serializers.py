@@ -106,13 +106,13 @@ class BuyerRegisterSerializer(serializers.ModelSerializer):
         ]
         extra_kwargs = {"password": {"write_only": True}}
 
-    def get_message(self, obj):
+    def get_message(self):
         return "Thank you for registering. You can now log in to your account and shop for your favourite plants!"
 
-    def get_verified(self, obj):
+    def get_verified(self):
         return False
 
-    def get_role(self, obj):
+    def get_role(self):
         return "Buyer"
 
     def get_token(self, value):

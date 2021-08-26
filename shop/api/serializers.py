@@ -1,5 +1,3 @@
-from accounts.api.views import get_user_from_token
-from django.conf.urls import url
 from rest_framework import serializers
 from ..models import Product, Category, CartItem
 from django.conf import settings
@@ -61,7 +59,8 @@ class ProductSerializer(serializers.HyperlinkedModelSerializer):
         instance.discount = validated_data.get("discount", instance.discount)
         instance.quantity = validated_data.get("quantity", instance.quantity)
         instance.image = validated_data.get("image", instance.image)
-        instance.description = validated_data.get("description", instance.description)
+        instance.description = validated_data.get(
+            "description", instance.description)
         instance.save()
         return instance
 

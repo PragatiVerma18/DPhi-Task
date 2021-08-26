@@ -1,13 +1,10 @@
 from .serializers import UserSerializer
 from ..models import User
 from .serializers import NurseryRegisterSerializer, BuyerRegisterSerializer
-from rest_framework import viewsets
-from rest_framework import generics, permissions
+from rest_framework import generics
 from rest_framework.response import Response
 from django.shortcuts import get_object_or_404
-from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework_simplejwt.backends import TokenBackend
-from rest_framework.views import APIView
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from rest_framework.status import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND, HTTP_200_OK
@@ -31,10 +28,6 @@ def get_user_from_token(request):
 
 class NurseryRegisterAPIView(generics.CreateAPIView):
 
-    """
-    A view that handles Nursery Registration.
-    """
-
     queryset = User.objects.all()
     serializer_class = NurseryRegisterSerializer
 
@@ -44,10 +37,6 @@ class NurseryRegisterAPIView(generics.CreateAPIView):
 
 class BuyerRegisterAPIView(generics.CreateAPIView):
 
-    """
-    A view that handles Buyer Registration.
-    """
-
     queryset = User.objects.all()
     serializer_class = BuyerRegisterSerializer
 
@@ -56,10 +45,6 @@ class BuyerRegisterAPIView(generics.CreateAPIView):
 
 
 class BuyerList(generics.ListAPIView):
-
-    """
-    A view that returns buyer list.
-    """
 
     model = User
     serializer_class = UserSerializer
@@ -71,10 +56,6 @@ class BuyerList(generics.ListAPIView):
 
 class NurseryList(generics.ListAPIView):
 
-    """
-    A view that returns nursery list.
-    """
-
     model = User
     serializer_class = UserSerializer
 
@@ -84,10 +65,6 @@ class NurseryList(generics.ListAPIView):
 
 
 class UserDetail(generics.RetrieveAPIView):
-
-    """
-    A view that returns user details from username.
-    """
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
@@ -101,9 +78,6 @@ class UserDetail(generics.RetrieveAPIView):
 
 @api_view(["POST"])
 def login(request):
-    """
-    A view that handles login for buyers and nurseries.
-    """
 
     username = request.data.get("username")
     password = request.data.get("password")

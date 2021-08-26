@@ -4,25 +4,17 @@ from accounts.api.views import get_user_from_token
 
 class IsAuthenticatedAndBuyer(permissions.BasePermission):
 
-    """
-    Reserve Routes for Buyer
-    """
-
-    def has_permission(self, request, view):
+    def has_permission(self, request):
         return request.user and request.user.is_authenticated and request.user.role == "Buyer"
 
-    def has_object_permission(self, request, view, obj):
+    def has_object_permission(self, request, obj):
         return obj.user == request.user and request.user.role == "Buyer"
 
 
 class IsAuthenticatedAndNursery(permissions.BasePermission):
 
-    """
-    Reserve Routes for Nursery
-    """
-
-    def has_permission(self, request, view):
+    def has_permission(self, request):
         return request.user and request.user.is_authenticated and request.user.role == "Nursery"
 
-    def has_object_permission(self, request, view, obj):
+    def has_object_permission(self, request, obj):
         return obj.user == request.user and request.user.role == "Nursery"

@@ -1,4 +1,4 @@
-from rest_framework import request, viewsets, permissions, generics, status
+from rest_framework import permissions, generics, status
 from ..models import Product, Category, CartItem
 from .serializers import (
     ProductSerializer,
@@ -11,7 +11,6 @@ from rest_framework.views import APIView
 from django.shortcuts import get_object_or_404
 from rest_framework.response import Response
 from rest_framework import filters
-from accounts.api.views import get_user_from_token
 from .permissions import IsAuthenticatedAndBuyer, IsAuthenticatedAndNursery
 
 
