@@ -36,6 +36,7 @@ class Product(models.Model):
     discount = models.PositiveIntegerField(default=0)
     is_available = models.BooleanField(default=True)
     quantity = models.PositiveIntegerField()
+    objects = models.Manager()
     available = AvailableManager()
     created = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
